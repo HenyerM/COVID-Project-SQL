@@ -280,4 +280,4 @@ ROUND(  (CAST(Rolling_People_Vaccinated as float)/population)*100-
 LAG( ((CAST(Rolling_People_Vaccinated as float)/population)*100),1,0) OVER ( ORDER BY location,date),3) as 'Increase_in_Percentage'
 FROM POPvsVAC;
 
---The tables created can be seen in a visualization Tool
+--The tables created can be analyze through a visualization Tool
