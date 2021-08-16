@@ -1,0 +1,283 @@
+-- For this project the data was extracted from information related to COVID19 cases updated by Friday the 13th, 2021. Info was download on website: https://ourworldindata.org/covid-deaths The datas was splitted into two tables focused on infor regarding deaths and vaccination data 
+-- First data need to be clean since columns were duplicated during the Importing process
+-- Hence, two new tables called 'Deaths' and 'Vaccinations' which contains no duplicate values will be created   
+--All results from the following queries were validated by COVID data base on Internet.
+DROP TABLE IF exists dbo.Deaths
+-- To avoid any error due to an already exists table
+CREATE Table dbo.Deaths (
+iso_code nvarchar(255),
+continent nvarchar(255),
+location nvarchar(255),
+date datetime,
+population float,
+total_cases int,
+new_cases float,
+new_cases_smoothed float,
+total_deaths int,
+new_deaths nvarchar(255),
+new_deaths_smoothed float,
+total_cases_per_million float,
+new_cases_per_million float,
+new_cases_smoothed_per_million float,
+total_deaths_per_million nvarchar(255),
+new_deaths_per_million nvarchar(255),
+new_deaths_smoothed_per_million float,
+reproduction_rate nvarchar(255),
+icu_patients nvarchar(255),
+icu_patients_per_million nvarchar(255),
+hosp_patients nvarchar(255),
+hosp_patients_per_million nvarchar(255),
+weekly_icu_admissions nvarchar(255),
+weekly_icu_admissions_per_million nvarchar(255),
+weekly_hosp_admissions nvarchar(255))
+
+INSERT INTO dbo.Deaths 
+SELECT iso_code,
+continent,
+location,
+date,
+population,
+total_cases,
+new_cases,
+new_cases_smoothed,
+total_deaths,
+new_deaths,
+new_deaths_smoothed,
+total_cases_per_million,
+new_cases_per_million,
+new_cases_smoothed_per_million,
+total_deaths_per_million,
+new_deaths_per_million,
+new_deaths_smoothed_per_million,
+reproduction_rate,
+icu_patients,
+icu_patients_per_million,
+hosp_patients,
+hosp_patients_per_million,
+weekly_icu_admissions,
+weekly_icu_admissions_per_million,
+weekly_hosp_admissions
+
+FROM dbo.coviddeath$
+	 GROUP BY iso_code,
+continent,
+location,
+date,
+population,
+total_cases,
+new_cases,
+new_cases_smoothed,
+total_deaths,
+new_deaths,
+new_deaths_smoothed,
+total_cases_per_million,
+new_cases_per_million,
+new_cases_smoothed_per_million,
+total_deaths_per_million,
+new_deaths_per_million,
+new_deaths_smoothed_per_million,
+reproduction_rate,
+icu_patients,
+icu_patients_per_million,
+hosp_patients,
+hosp_patients_per_million,
+weekly_icu_admissions,
+weekly_icu_admissions_per_million,
+weekly_hosp_admissions
+	 HAVING COUNT (*) > 1;
+
+DROP TABLE IF exists dbo.Vaccinations
+-- To avoid any error due to an already exists table
+CREATE Table dbo.Vaccinations (
+iso_code nvarchar(255),
+continent nvarchar(255),
+location nvarchar(255),
+date datetime,
+new_tests nvarchar(255),
+total_tests nvarchar(255),
+total_tests_per_thousand nvarchar(255),
+new_tests_per_thousand nvarchar(255),
+new_tests_smoothed nvarchar(255),
+new_tests_smoothed_per_thousand nvarchar(255),
+positive_rate nvarchar(255),
+tests_per_case nvarchar(255),
+tests_units nvarchar(255),
+total_vaccinations nvarchar(255),
+people_vaccinated nvarchar(255),
+people_fully_vaccinated nvarchar(255),
+total_boosters nvarchar(255),
+new_vaccinations nvarchar(255),
+new_vaccinations_smoothed nvarchar(255),
+total_vaccinations_per_hundred nvarchar(255),
+people_vaccinated_per_hundred nvarchar(255),
+people_fully_vaccinated_per_hundred nvarchar(255),
+total_boosters_per_hundred nvarchar(255),
+new_vaccinations_smoothed_per_million nvarchar(255),
+stringency_index float,
+population_density float,
+median_age float,
+aged_65_older float,
+aged_70_older float,
+gdp_per_capita float,
+extreme_poverty nvarchar(255),
+cardiovasc_death_rate float,
+diabetes_prevalence float,
+female_smokers nvarchar(255),
+male_smokers nvarchar(255),
+handwashing_facilities float,
+hospital_beds_per_thousand float,
+life_expectancy float,
+human_development_index float,
+excess_mortality nvarchar(255)
+)
+
+INSERT INTO dbo.Vaccinations 
+SELECT iso_code,
+continent,
+location,
+date,
+new_tests,
+total_tests,
+total_tests_per_thousand,
+new_tests_per_thousand,
+new_tests_smoothed,
+new_tests_smoothed_per_thousand,
+positive_rate,
+tests_per_case,
+tests_units,
+total_vaccinations,
+people_vaccinated,
+people_fully_vaccinated,
+total_boosters,
+new_vaccinations,
+new_vaccinations_smoothed,
+total_vaccinations_per_hundred,
+people_vaccinated_per_hundred,
+people_fully_vaccinated_per_hundred,
+total_boosters_per_hundred,
+new_vaccinations_smoothed_per_million,
+stringency_index,
+population_density,
+median_age,
+aged_65_older,
+aged_70_older,
+gdp_per_capita,
+extreme_poverty,
+cardiovasc_death_rate,
+diabetes_prevalence,
+female_smokers,
+male_smokers,
+handwashing_facilities,
+hospital_beds_per_thousand,
+life_expectancy,
+human_development_index,
+excess_mortality
+FROM dbo.covidvaccination$
+	 GROUP BY iso_code,
+continent,
+location,
+date,
+new_tests,
+total_tests,
+total_tests_per_thousand,
+new_tests_per_thousand,
+new_tests_smoothed,
+new_tests_smoothed_per_thousand,
+positive_rate,
+tests_per_case,
+tests_units,
+total_vaccinations,
+people_vaccinated,
+people_fully_vaccinated,
+total_boosters,
+new_vaccinations,
+new_vaccinations_smoothed,
+total_vaccinations_per_hundred,
+people_vaccinated_per_hundred,
+people_fully_vaccinated_per_hundred,
+total_boosters_per_hundred,
+new_vaccinations_smoothed_per_million,
+stringency_index,
+population_density,
+median_age,
+aged_65_older,
+aged_70_older,
+gdp_per_capita,
+extreme_poverty,
+cardiovasc_death_rate,
+diabetes_prevalence,
+female_smokers,
+male_smokers,
+handwashing_facilities,
+hospital_beds_per_thousand,
+life_expectancy,
+human_development_index,
+excess_mortality
+HAVING COUNT (*) > 1;
+
+-- First glance of the data that will be used
+SELECT location, date, population, total_cases, new_cases, total_deaths
+-- Insert "WHERE location = 'location_name' in order to shows the data for an specific location
+FROM dbo.Deaths;
+
+
+--Looking at Total Cases vs Total Death
+-- Shows the likelyhood of dying if getting COVID depending on the location
+SELECT location, date, total_deaths, total_cases,ROUND((CAST(total_deaths as float)/total_cases)*100,3) as 'Daily Death Percentage'
+FROM dbo.Deaths
+-- Insert "WHERE location = 'location_name' in order to shows the data for an specific location
+ORDER BY 1,2 DESC;
+
+--Looking at Total Cases vs Population
+-- What percentage of population got COVID
+SELECT location, population, MAX(total_cases) as 'Total cases', ROUND(MAX((CAST(total_cases as float))/population)*100,3) as 'Infection Percentage'
+FROM dbo.Deaths
+-- Insert "WHERE location = 'location_name' in order to shows the data for an specific location
+GROUP BY location, population
+ORDER BY 1,2,3 DESC;
+
+-- Showing countries with highest Deaths Count Per Location
+SELECT location, population, SUM(CAST(new_deaths as float)) as 'Deaths Count Per Location'
+FROM dbo.Deaths
+-- Insert "WHERE location = 'location_name' in order to shows the data for an specific location
+GROUP BY location, population
+ORDER BY 3 DESC;
+
+-- Showing countries with Highest Deaths Percentage Per Population
+SELECT location, population, SUM(CAST(new_deaths as float)) as 'Total Deaths', ROUND(SUM((CAST(new_deaths as float))/population)*100,3) as 'Deaths Percentage Per Population'
+FROM dbo.Deaths
+-- Insert "WHERE location = 'location_name'" in order to shows the data for an specific location
+GROUP BY location, population
+ORDER BY 4 DESC;
+
+-- Showing countries with Highest Deaths Percentage Per Cases4
+-- There some data missing in column 'New_cases' so we need to obmit this columns in the Agregate function
+SELECT location, population, SUM(CAST(new_deaths as float)) as 'Total Deaths',
+SUM(new_cases) as 'Total Cases' ,
+ROUND((SUM(CAST(new_deaths as float))/SUM(new_cases))*100,3) as 'Deaths Percentage Per Cases'
+FROM dbo.Deaths
+-- Insert "WHERE location = 'location_name'" in order to shows the data for an specific location
+WHERE new_cases IS NOT NULL
+GROUP BY location, population
+ORDER BY 5 DESC;
+
+
+-- Looking at Total Population vs Vaccination
+With POPvsVAC as (
+SELECT de.location,de.date, de.population, 
+SUM(CAST(va.people_vaccinated as float)) OVER (PARTITION BY de.location,de.date) as 'Rolling_People_Vaccinated'
+FROM dbo.Deaths as de
+JOIN dbo.Vaccinations as va
+ON de.location = va.location
+  and de.date = va.date
+-- Insert "WHERE de.location = 'location_name' in order to shows the data for an specific location
+WHERE de.location = 'Hungary'
+)
+
+SELECT *, 
+ROUND((CAST(Rolling_People_Vaccinated as float)/population)*100,3) as 'Percentage of People Vaccinated per day',
+ROUND(  (CAST(Rolling_People_Vaccinated as float)/population)*100-
+LAG( ((CAST(Rolling_People_Vaccinated as float)/population)*100),1,0) OVER ( ORDER BY location,date),3) as 'Increase_in_Percentage'
+FROM POPvsVAC;
+
+--The tables created can be seen in a visualization Tool
