@@ -264,7 +264,8 @@ ORDER BY 5 DESC;
 
 -- Looking at Total Population vs Vaccination
 --Creating a view for this table
-CREATE view POPvsVACview AS
+DROP View IF exists dbo.POPvsVACview;
+CREATE view dbo.POPvsVACview AS
 
 With POPvsVAC as (
 SELECT de.location,de.date, de.population, 
@@ -274,7 +275,6 @@ JOIN dbo.Vaccinations as va
 ON de.location = va.location
   and de.date = va.date
 -- Insert "WHERE de.location = 'location_name' in order to shows the data for an specific location
-WHERE de.location = 'Hungary'
 )
 
 
@@ -285,5 +285,6 @@ LAG( ((CAST(Rolling_People_Vaccinated as float)/population)*100),1,0) OVER ( ORD
 FROM POPvsVAC;
 
 
+SELECT * FROM dbo.POPvsVACview;
 
 --The tables created can be seen in a visualization Tool
