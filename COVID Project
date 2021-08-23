@@ -263,6 +263,9 @@ ORDER BY 5 DESC;
 
 
 -- Looking at Total Population vs Vaccination
+--Creating a view for this table
+CREATE view POPvsVACview AS
+
 With POPvsVAC as (
 SELECT de.location,de.date, de.population, 
 SUM(CAST(va.people_vaccinated as float)) OVER (PARTITION BY de.location,de.date) as 'Rolling_People_Vaccinated'
@@ -274,10 +277,13 @@ ON de.location = va.location
 WHERE de.location = 'Hungary'
 )
 
+
 SELECT *, 
 ROUND((CAST(Rolling_People_Vaccinated as float)/population)*100,3) as 'Percentage of People Vaccinated per day',
 ROUND(  (CAST(Rolling_People_Vaccinated as float)/population)*100-
 LAG( ((CAST(Rolling_People_Vaccinated as float)/population)*100),1,0) OVER ( ORDER BY location,date),3) as 'Increase_in_Percentage'
 FROM POPvsVAC;
 
---The tables created can be analyze through a visualization Tool
+
+
+--The tables created can be seen in a visualization Tool
