@@ -1,4 +1,4 @@
--- For this project the data was extracted from information related to COVID19 cases updated by Friday the 13th, 2021. Info was download on website: https://ourworldindata.org/covid-deaths The datas was splitted into two tables focused on infor regarding deaths and vaccination data 
+-- For this project, the data was extracted from information related to COVID19 cases updated by Friday the 13th, 2021. Info was downloaded on the website: https://ourworldindata.org/covid-deaths The data was split into two tables focused on info regarding deaths and vaccination data  
 -- First data need to be clean since columns were duplicated during the Importing process
 -- Hence, two new tables called 'Deaths' and 'Vaccinations' which contains no duplicate values will be created   
 --All results from the following queries were validated by COVID data base on Internet.
